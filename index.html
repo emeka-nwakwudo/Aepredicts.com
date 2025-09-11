@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AEpredicts — Simple Betting UI (Optimized)</title>
+  <link rel="icon" type="image/png" href="your-logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ====== HEADER ====== -->
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand header-logo" aria-label="AEpredicts home">
+        <img src="your-logo.png" alt="AEpredicts logo">
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="signin.html">Live</a>
+        <a href="predictions.html">Predictions</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+        <a href="donate.html">Donate</a>
+      </nav>
+      <a class="cta" href="signup.html" aria-label="Sign up">Sign Up</a>
+    </div>
+  </header>
+
+  <!-- ====== MAIN ====== -->
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-wrap">
+        <div class="card banner">
+          <h1>Bet smarter. Bet simpler.</h1>
+          <p>The World’s First Live Prediction Site — win like never before!!!</p>
+          <div class="statbar">
+            <div class="chip">Live Predictions: <strong>128</strong></div>
+            <div class="chip">Won: <strong>121</strong></div>
+            <div class="chip">Lost: <strong>7</strong></div>
+            <div class="chip">Win Rate: <strong>94.5%</strong></div>
+          </div>
+        </div>
+        <div class="card promo">
+          <a class="cta" href="signin.html" aria-label="Login">Login</a>
+          <div>
+            <div style="font-weight:700;">To enjoy live predictions as it happens</div>
+            <div style="margin-top:8px;">• T&Cs apply • 18+</div>
+          </div>
+        </div> 
+      </div>
+    </section>
+
+    <!-- 3-column layout -->
+    <section class="grid">
+      <!-- Left: Sports list -->
+      <aside class="card sports" aria-label="Sports list">
+        <h3>Sports</h3>
+        <div class="list">
+          <a href="#">Football <span>512</span></a>
+          <a href="#">Basketball <span>203</span></a>
+          <a href="#">Tennis <span>98</span></a>
+          <a href="#">Volleyball <span>33</span></a>
+        </div>
+      </aside>
+
+      <div>
+        <!-- Center: Events -->
+        <section class="card" aria-label="Featured football matches">
+          <div class="section-title">
+            <h2>Today's Featured</h2>
+            <div class="meta">Odds refresh every 10s</div>
+          </div>
+          <div class="events" id="today-events">
+            <!-- Events will be loaded here dynamically -->
+          </div>
+        </section>
+
+        <section class="card" aria-label="Future football matches" style="margin-top: 1.5rem;">
+          <div class="section-title">
+            <h2>Future Fixtures</h2>
+          </div>
+          <div class="events" id="future-events">
+            <!-- Future events will be loaded here dynamically -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Right: Prediction Slip -->
+      <aside class="card predictionslip" aria-label="Prediction slip" id="PredictionSlip">
+        <div class="slip-head">
+          <div style="font-weight:700; color: var(--primary);">Prediction Slip</div>
+          <div class="meta" id="legCount">0 selections</div>
+        </div>
+        <div class="slip-items" id="slipItems">
+          <div class="slip-empty" id="emptyState">No selections yet. Tap an odds button to add.</div>
+        </div>
+        <div class="slip-foot">
+          <div class="row"><span>Total odds</span> <strong id="totalOdds">1.00</strong></div>
+          <div class="stake">
+            <input id="stake" type="number" min="0" step="0.5" placeholder="Stake (e.g. 1000)" aria-label="Stake" />
+          </div>
+          <div class="row"><span>Potential return</span> <strong id="potential">0.00</strong></div>
+          <button class="cta place" aria-label="save selections">Save Selections</button>
+          <button class="cta place" aria-label="Export to Bet site">Export to Bet site</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Mobile predictionslip button & drawer -->
+  <button class="mobile-cta" id="openDrawer" aria-label="Open Prediction slip">
+    Prediction Slip <span class="badge" id="mobileCount">0</span>
+  </button>
+  <div class="drawer" aria-hidden="true" id="drawer">
+    <div class="drawer-panel"> 
+      <aside class="predictionslip">
+        <div class="slip-head" style="border-bottom: 1px solid var(--border);">
+          <div style="font-weight:700; color: var(--primary);">Prediction Slip</div>
+          <button class="remove" id="closeDrawer" aria-label="Close prediction slip">×</button>
+        </div>
+        <div class="slip-items" id="mSlipItems"></div>
+        <div class="slip-foot">
+          <div class="row"><span>Total odds</span> <strong id="mTotalOdds">1.00</strong></div>
+          <div class="stake">
+            <input id="mStake" type="number" min="0" step="0.5" placeholder="Stake" aria-label="Stake" />
+          </div>
+          <div class="row"><span>Potential return</span> <strong id="mPotential">0.00</strong></div>
+          <button class="cta place" aria-label="Save bet (mobile)">Save Bet</button>
+          <button class="cta remove" aria-label="Export bet (mobile)">Export Bet</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <div>© 2025 AEpredicts. Please bet responsibly • 18+</div>
+      <div>Made by AEtech & Marketing Ltd</div>
+      <div class="social-icons-png">
+        <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="images/twitter.png" alt="Twitter"></a>
+        <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+  <script src="js/predictions.js"></script>
+  </body>
+  </html>

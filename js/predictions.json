@@ -1,0 +1,151 @@
+[
+  {
+    "id": 1,
+    "date": "2025-09-10",
+    "time": "18:30",
+    "sport": "Football",
+    "league": "Premier League",
+    "teams": {
+      "home": "Arsenal",
+      "away": "Chelsea"
+    },
+    "market": "1X2",
+    "odds": {
+      "home": 1.95,
+      "draw": 3.40,
+      "away": 3.90
+    },
+    "prediction": "Arsenal",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "date": "2025-09-10",
+    "time": "20:00",
+    "sport": "Football",
+    "league": "La Liga",
+    "teams": {
+      "home": "Real Madrid",
+      "away": "Barcelona"
+    },
+    "market": "1X2",
+    "odds": {
+      "home": 2.20,
+      "draw": 3.30,
+      "away": 3.10
+    },
+    "prediction": "Barcelona",
+    "status": "pending"
+  },
+  {
+    "id": 3,
+    "date": "2025-09-10",
+    "time": "19:15",
+    "sport": "Football",
+    "league": "Bundesliga",
+    "teams": {
+      "home": "Bayern",
+      "away": "Dortmund"
+    },
+    "market": "1X2",
+    "odds": {
+      "home": 1.80,
+      "draw": 3.70,
+      "away": 4.20
+    },
+    "prediction": "Bayern",
+    "status": "pending"
+  },
+  {
+    "id": 4,
+    "date": "2025-09-08",
+    "time": "19:15",
+    "sport": "Football",
+    "league": "Serie A",
+    "teams": {
+      "home": "Juventus",
+      "away": "AC Milan"
+    },
+    "market": "1X2",
+    "odds": {
+      "home": 2.10,
+      "draw": 3.20,
+      "away": 3.50
+    },
+    "prediction": "Juventus",
+    "status": "won"
+  },
+  {
+    "id": 5,
+    "date": "2025-09-12",
+    "time": "21:00",
+    "sport": "Football",
+    "league": "Friendly Match",
+    "teams": {
+      "home": "Team A",
+      "away": "Team B"
+    },
+    "market": "GG/NG",
+    "odds": {
+      "gg": 1.85,
+      "ng": 1.95
+    },
+    "prediction": "GG",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "date": "2025-09-11",
+    "time": "17:00",
+    "sport": "Football",
+    "league": "Bahrain D1",
+    "teams": {
+      "home": "Al Hidd",
+      "away": "Malkiya Club"
+    },
+    "market": "Over/Under 1.5",
+    "odds": {
+      "over": 1.24,
+      "under": 3.45
+    },
+    "prediction": "Over 1.5",
+    "status": "pending"
+  },
+  {
+    "id": 7,
+    "date": "2025-09-11",
+    "time": "17:00",
+    "sport": "Football",
+    "league": "Bahrain D1",
+    "teams": {
+      "home": "Sitra Club",
+      "away": "AL Bahrain"
+    },
+    "market": "Over/Under 1.5",
+    "odds": {
+      "over": 1.31,
+      "under": 3.00
+    },
+    "prediction": "Over 1.5",
+    "status": "pending"
+  },
+  {
+    "id": 8,
+    "date": "2025-09-11",
+    "time": "14:30",
+    "sport": "Football",
+    "league": "Uzbekistan D1",
+    "teams": {
+      "home": "Mash AL Mubarek",
+      "away": "Shurtan"
+    },
+    "market": "1X2",
+    "odds": {
+      "home": 2.57,
+      "draw": 3.30,
+      "away": 2.30
+    },
+    "prediction": "Mash AL Mubarek",
+    "status": "pending"
+  }
+]

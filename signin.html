@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AEpredicts — Sign In</title>
+  <link rel="icon" type="image/png" href="your-logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ====== HEADER ====== -->
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand header-logo" aria-label="AEpredicts home">
+        <img src="your-logo.png" alt="AEpredicts logo">
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="signin.html">Live</a>
+        <a href="predictions.html">Predictions</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+        <a href="donate.html">Donate</a>
+      </nav>
+      <a class="cta" href="signup.html">Sign Up</a>
+    </div>
+  </header>
+
+  <!-- ====== MAIN ====== -->
+  <main class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+    <section class="card" style="padding: 2rem; width: 100%; max-width: 400px;">
+      <div class="section-title">
+        <h2>Sign In</h2>
+      </div>
+      <form id="signin-form" style="margin-top: 1rem;">
+        <div style="margin-bottom: 1rem;">
+          <label for="email" style="display: block; margin-bottom: 0.5rem;">Email</label>
+          <input type="email" id="email" name="email" required style="width: 100%; background: var(--panel-2); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 12px;">
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="password" style="display: block; margin-bottom: 0.5rem;">Password</label>
+          <input type="password" id="password" name="password" required style="width: 100%; background: var(--panel-2); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 12px;">
+        </div>
+        <button type="submit" class="cta place">Sign In</button>
+      </form>
+      <div style="margin-top: 1rem; text-align: center;">
+        <p>Don't have an account? <a href="signup.html" style="color: var(--primary);">Sign Up</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© 2025 AEpredicts. Please bet responsibly • 18+</div>
+      <div>Made by AEtech & Marketing Ltd</div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('signin-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      localStorage.setItem('username', email.split('@')[0]); // Use part of email as username
+      alert('Signed in as ' + localStorage.getItem('username'));
+      window.location.href = 'index.html'; // Redirect to home page
+    });
+  </script>
+</body>
+</html>
