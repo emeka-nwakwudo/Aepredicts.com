@@ -31,22 +31,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('disclaimer-modal');
     const closeButton = document.querySelector('.close-button');
 
-    // Show the modal when the page loads
-    if (modal) {
+    // Show the modal only if it hasn't been shown before in this session
+    if (modal && !sessionStorage.getItem('disclaimerShown')) {
         modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.style.display = 'none';
+            sessionStorage.setItem('disclaimerShown', 'true');
+        }
     }
 
     // When the user clicks on <span> (x), close the modal
     if (closeButton) {
-        closeButton.onclick = function() {
-            modal.style.display = 'none';
-        }
+        closeButton.onclick = closeModal;
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = 'none';
+            closeModal();
         }
     }
 });
