@@ -177,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mTotalOdds = document.getElementById('mTotalOdds');
     const mStakeInput = document.getElementById('mStake');
     const mPotential = document.getElementById('mPotential');
+    const saveSelectionsBtn = document.getElementById('save-selections-btn');
+    const saveSelectionsBtnMobile = document.getElementById('save-selections-btn-mobile');
 
     let currentStake = 0;
 
@@ -220,6 +222,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calcTotalOdds() {
       return slip.reduce((acc, cur) => acc * parseFloat(cur.odds), 1) || 1;
+    }
+
+    function printSlip() {
+        if (slip.length === 0) {
+            alert("Please make a selection first.");
+            return;
+        }
+
+        const slipHTML = `
+            <html>
+                <head>
+                    <title>AEpredicts Slip</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 20px; }
+                        h1 { text-align: center; font-family: "Copperplate Gothic Bold", sans-serif; }
+                        .slip-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+                        .total { text-align: right; font-weight: bold; margin-top: 20px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>AEpredicts</h1>
+                    ${slip.map(item => `
+                        <div class="slip-item">
+                            <div>
+                                <div><strong>${item.selection}</strong> <span class="small">(${item.market})</span></div>
+                                <div class="small">${item.match}</div>
+                            </div>
+                            <div style="text-align: right;"><span class="odd-value">${item.odds}</span></div>
+                        </div>
+                    `).join('')}
+                    <div class="total">Total Odds: ${calcTotalOdds().toFixed(2)}</div>
+                </body>
+            </html>
+        `;
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(slipHTML);
+        printWindow.document.close();
+        printWindow.print();
     }
 
     // Global event listener for odd buttons using delegation
@@ -283,6 +324,14 @@ document.addEventListener('DOMContentLoaded', () => {
           stakeInput.value = mStakeInput.value;
           updatePotential();
         });
+    }
+
+    if (saveSelectionsBtn) {
+        saveSelectionsBtn.addEventListener('click', printSlip);
+    }
+
+    if (saveSelectionsBtnMobile) {
+        saveSelectionsBtnMobile.addEventListener('click', printSlip);
     }
 
     function checkMobile() {
