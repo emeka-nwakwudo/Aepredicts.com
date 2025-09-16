@@ -26,4 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
             drawer.setAttribute('aria-hidden', 'true');
         });
     }
+
+    // Disclaimer Modal
+    const modal = document.getElementById('disclaimer-modal');
+    const closeButton = document.querySelector('.close-button');
+
+    // Show the modal when the page loads
+    if (modal) {
+        modal.style.display = 'block';
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    if (closeButton) {
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
 });
