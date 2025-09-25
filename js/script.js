@@ -54,4 +54,75 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     }
+
+    // --- Authentication related functions ---
+    const signupLink = document.getElementById('signup-link');
+    const logoutButton = document.getElementById('logout-button');
+    const welcomeMessage = document.getElementById('welcome-message');
+
+    let isAuthenticatedUser = false; // Flag to track authentication status
+
+    async function checkAuthStatus() {
+      try {
+        const response = await fetch('/api/user'); // Call the new /api/user endpoint
+        if (response.ok) {
+          const data = await response.json();
+          isAuthenticatedUser = true; // Set flag to true
+          // User is logged in
+          if (signupLink) signupLink.style.display = 'none';
+          if (logoutButton) logoutButton.style.display = 'block';
+          if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome, ${data.username}!`; // Use username from response
+            welcomeMessage.style.display = 'inline';
+          }
+        } else {
+          isAuthenticatedUser = false; // Set flag to false
+          // User is not logged in
+          if (signupLink) signupLink.style.display = 'block';
+          if (logoutButton) logoutButton.style.display = 'none';
+          if (welcomeMessage) welcomeMessage.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error checking auth status:', error);
+        isAuthenticatedUser = false; // Assume not logged in on error
+        // Assume not logged in on error
+        if (signupLink) signupLink.style.display = 'block';
+        if (logoutButton) logoutButton.style.display = 'none';
+        if (welcomeMessage) welcomeMessage.style.display = 'none';
+      }
+    }
+
+    async function handleLogout() {
+      try {
+        const response = await fetch('/api/logout', {
+          method: 'POST',
+        });
+
+        if (response.ok) {
+          // Successfully logged out
+          window.location.href = 'index.html'; // Redirect to home or login page
+        } else {
+          console.error('Logout failed:', await response.text());
+          alert('Logout failed. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+        alert('An unexpected error occurred during logout.');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', handleLogout);
+    }
+
+    // Call checkAuthStatus on page load
+    checkAuthStatus().then(() => {
+      // --- Client-side route protection ---
+      const protectedRoutes = ['/live.html', '/predictions.html', '/history.html'];
+      const currentPath = window.location.pathname;
+
+      if (protectedRoutes.includes(currentPath) && !isAuthenticatedUser) {
+        window.location.href = 'signin.html'; // Redirect to sign-in page
+      }
+    });
 });

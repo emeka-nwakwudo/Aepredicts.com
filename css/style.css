@@ -272,7 +272,7 @@
 }
 
 .close-button {
-  color: var(--muted);
+  color: red; /* Changed to red */
   float: right;
   font-size: 28px;
   font-weight: bold;

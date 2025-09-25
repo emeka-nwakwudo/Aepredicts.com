@@ -17,7 +17,7 @@
       <p>Predictions are not guaranteed. Please use your discretion.</p>
     </div>
   </div>
-d
+
   <!-- ====== HEADER ====== -->
   <header>
     <div class="container nav">
@@ -31,8 +31,13 @@ d
         <a href="history.html">History</a>
         <a href="about.html">About</a>
         <a href="donate.html">Donate</a>
+        <a href="admin.html" id="admin-link" style="display: none;">Admin</a>
       </nav>
-      <a class="cta" href="signup.html" aria-label="Sign up">Sign Up</a>
+      <div id="auth-controls">
+        <span id="welcome-message" style="display: none; color: var(--text); margin-right: 1rem;"></span>
+        <a class="cta" href="signup.html" id="signup-link" aria-label="Sign up">Sign Up</a>
+        <button class="cta" id="logout-button" style="display: none;" aria-label="Logout">Logout</button>
+      </div>
     </div>
   </header>
 

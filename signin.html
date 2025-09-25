@@ -46,6 +46,7 @@
       <div style="margin-top: 1rem; text-align: center;">
         <p>Don't have an account? <a href="signup.html" style="color: var(--primary);">Sign Up</a></p>
       </div>
+      <div id="message" style="margin-top: 1rem; text-align: center; color: red;"></div>
     </section>
   </main>
 
@@ -56,12 +57,40 @@
     </div>
   </footer>
   <script>
-    document.getElementById('signin-form').addEventListener('submit', function(e) {
+    document.getElementById('signin-form').addEventListener('submit', async function(e) {
       e.preventDefault();
+
       const email = document.getElementById('email').value;
-      localStorage.setItem('username', email.split('@')[0]); // Use part of email as username
-      alert('Signed in as ' + localStorage.getItem('username'));
-      window.location.href = 'live.html'; // Redirect to live page
+      const password = document.getElementById('password').value;
+      const messageDiv = document.getElementById('message');
+
+      try {
+        const response = await fetch('/api/signin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          messageDiv.style.color = 'green';
+          messageDiv.textContent = data.message || 'Sign in successful!';
+          // Redirect after a short delay to allow user to read the message
+          setTimeout(() => {
+            window.location.href = 'index.html'; 
+          }, 1500);
+        } else {
+          messageDiv.style.color = 'red';
+          messageDiv.textContent = data.message || 'Login failed. Please check your email and password.';
+        }
+      } catch (error) {
+        console.error('Error during sign in:', error);
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = 'An error occurred. Please try again later.';
+      }
     });
   </script>
 </body>

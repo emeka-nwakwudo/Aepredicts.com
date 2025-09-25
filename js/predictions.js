@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     let allPredictions = [];
 
-    fetch('js/predictions.json')
+    fetch('/api/predictions')
         .then(response => response.json())
         .then(predictions => {
             allPredictions = predictions;
