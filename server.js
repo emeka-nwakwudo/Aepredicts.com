@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 // PostgreSQL connection pool
-const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:Emmy1000@localhost:5432/postgres';
+const connectionString = process.env.DATABASE_PRIVATE_URL || process.env.DATABASE_URL || 'postgresql://postgres:Emmy1000@localhost:5432/postgres';
 
 const pool = new Pool({
   connectionString: connectionString,
