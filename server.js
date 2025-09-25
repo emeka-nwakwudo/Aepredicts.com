@@ -8,12 +8,11 @@ const app = express();
 const port = 3000;
 
 // PostgreSQL connection pool
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:Emmy1000@localhost:5432/postgres';
+
 const pool = new Pool({
-  user: 'postgres', // Changed to 'postgres'
-  host: 'localhost',
-  database: 'postgres',
-  password: 'Emmy1000', // REPLACE WITH YOUR ACTUAL 'postgres' USER PASSWORD
-  port: 5432,
+  connectionString: connectionString,
+  ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false }
 });
 
 // Middleware to parse JSON bodies
@@ -46,7 +45,7 @@ app.get('/api/predictions', async (req, res) => {
     res.json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -67,7 +66,7 @@ app.post('/api/predictions', isAuthenticated, async (req, res) => {
     res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -93,7 +92,7 @@ app.put('/api/predictions/:id', isAuthenticated, async (req, res) => {
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -110,7 +109,7 @@ app.delete('/api/predictions/:id', isAuthenticated, async (req, res) => {
     res.status(204).send(); // No content for successful deletion
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -135,7 +134,7 @@ app.post('/api/signup', async (req, res) => {
     if (err.code === '23505') { // Unique violation error code
       return res.status(409).send('Username or email already exists');
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -164,7 +163,7 @@ app.post('/api/signin', async (req, res) => {
     res.status(200).json({ message: 'Logged in successfully', user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
@@ -172,7 +171,7 @@ app.post('/api/signin', async (req, res) => {
 app.post('/api/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
-      return res.status(500).send('Could not log out');
+      return res.status(500).json({ error: 'Could not log out' });
     }
     res.status(200).send('Logged out successfully');
   });
@@ -194,7 +193,7 @@ app.get('/api/user', isAuthenticated, async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
