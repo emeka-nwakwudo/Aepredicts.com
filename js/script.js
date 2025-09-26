@@ -100,6 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (signupLink) signupLink.style.display = 'block';
         if (logoutButton) logoutButton.style.display = 'none';
         if (welcomeMessage) welcomeMessage.style.display = 'none';
+      } finally {
+        // Make the auth controls visible after the check is complete
+        const authControls = document.getElementById('auth-controls');
+        if (authControls) {
+          authControls.style.visibility = 'visible';
+        }
       }
     }
 
