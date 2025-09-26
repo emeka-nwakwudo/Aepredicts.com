@@ -3,6 +3,7 @@ const { Pool } = require('pg');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,10 @@ app.use(express.json());
 
 // Configure express-session
 app.use(session({
+  store: new pgSession({
+    pool: pool,
+    tableName: 'user_sessions'
+  }),
   secret: '183bd0c06a7ea4062c05c6557a2ce4077ecbec377287ba64f3d836623bd502a2', // REPLACE WITH A STRONG, UNIQUE SECRET
   resave: false,
   saveUninitialized: false,
