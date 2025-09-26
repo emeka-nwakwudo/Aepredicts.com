@@ -23,9 +23,6 @@
         <a href="donate.html">Donate</a>
       </nav>
       <div id="auth-controls">
-        <span id="welcome-message" style="display: none; color: var(--text); margin-right: 1rem;"></span>
-        <a class="cta" href="signup.html" id="signup-link" aria-label="Sign up">Sign Up</a>
-        <button class="cta" id="logout-button" style="display: none;" aria-label="Logout">Logout</button>
       </div>
     </div>
   </header>
@@ -36,6 +33,11 @@
     <section class="card" aria-label="Prediction History" style="margin-top: 2rem;">
         <div class="section-title">
             <h2>Prediction History</h2>
+            <select id="history-filter">
+                <option value="recent">Recent</option>
+                <option value="won">Won</option>
+                <option value="lost">Lost</option>
+            </select>
         </div>
         <div class="events" id="history-events">
             <!-- History events will be loaded here dynamically -->

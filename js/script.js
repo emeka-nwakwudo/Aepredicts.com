@@ -72,11 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
           const signinLink = document.getElementById('signin-link');
           if (signupLink) signupLink.style.display = 'none';
           if (signinLink) signinLink.style.display = 'none';
-          if (logoutButton) logoutButton.style.display = 'block';
-          if (welcomeMessage) {
-            welcomeMessage.textContent = `Welcome, ${data.username}!`; // Use username from response
-            welcomeMessage.style.display = 'inline';
+
+          // Only show welcome message and logout button on the home page
+          if (window.location.pathname === '/index.html' || window.location.pathname === '/') {
+            if (logoutButton) logoutButton.style.display = 'block';
+            if (welcomeMessage) {
+              welcomeMessage.textContent = `Welcome, ${data.username}!`; // Use username from response
+              welcomeMessage.style.display = 'inline';
+            }
+          } else {
+            if (logoutButton) logoutButton.style.display = 'none';
+            if (welcomeMessage) welcomeMessage.style.display = 'none';
           }
+
           const promoCard = document.querySelector('.promo');
           if (promoCard) promoCard.style.display = 'none';        } else {
           isAuthenticatedUser = false; // Set flag to false
