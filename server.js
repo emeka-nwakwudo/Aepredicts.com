@@ -17,10 +17,13 @@ const pool = new Pool({
 });
 
 // Middleware to parse JSON bodies
-app.use(express.json());
+app.use(express.jserror: relation "user_sessions" does not exist
+    at C:\Users\CHIAMAKA OGBONA\OneDrive - Games Tech and Marketing Ltd\Desktop\app\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async PGStore._asyncQuery (C:\Users\CHIAMAKA OGBONA\OneDrive - Games Tech and Marketing Ltd\Desktop\app\node_modules\connect-pg-simple\index.js:322:21)on());
 
 // Configure express-session
-app.use(session({
+app.use(session({.
   store: new pgSession({
     pool: pool,
     tableName: 'user_sessions'

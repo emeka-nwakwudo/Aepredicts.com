@@ -22,7 +22,11 @@
         <a href="about.html">About</a>
         <a href="donate.html" class="active">Donate</a>
       </nav>
-      <a class="cta" href="signup.html" aria-label="Sign up">Sign Up</a>
+      <div id="auth-controls">
+        <span id="welcome-message" style="display: none; color: var(--text); margin-right: 1rem;"></span>
+        <a class="cta" href="signup.html" id="signup-link" aria-label="Sign up">Sign Up</a>
+        <button class="cta" id="logout-button" style="display: none;" aria-label="Logout">Logout</button>
+      </div>
     </div>
   </header>
 
@@ -51,5 +55,6 @@
       <div>Made by AEtech & Marketing Ltd</div>
     </div>
   </footer>
+  <script src="js/script.js"></script>
 </body>
 </html>

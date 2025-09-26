@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
             welcomeMessage.textContent = `Welcome, ${data.username}!`; // Use username from response
             welcomeMessage.style.display = 'inline';
           }
-        } else {
+          const promoCard = document.querySelector('.promo');
+          if (promoCard) promoCard.style.display = 'none';        } else {
           isAuthenticatedUser = false; // Set flag to false
           // User is not logged in
           if (signupLink) signupLink.style.display = 'block';
