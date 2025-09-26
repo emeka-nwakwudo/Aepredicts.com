@@ -85,6 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (welcomeMessage) welcomeMessage.style.display = 'none';
           }
 
+          // Show admin link if user is an admin
+          if (data.role === 'admin') {
+            const adminLink = document.getElementById('admin-link');
+            if (adminLink) {
+              adminLink.style.display = 'block';
+            }
+          }
+
           const promoCard = document.querySelector('.promo');
           if (promoCard) promoCard.style.display = 'none';        } else {
           isAuthenticatedUser = false; // Set flag to false
