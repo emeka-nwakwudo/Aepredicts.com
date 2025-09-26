@@ -34,14 +34,39 @@ app.use(session({
 // Serve static files from the root directory
 app.use(express.static(path.join(__dirname)));
 
-// Middleware to check if user is authenticated
-function isAuthenticated(req, res, next) {
-  if (req.session.userId) {
-    next();
-  } else {
-    res.status(401).send('Unauthorized');
+// Middleware to check if user is authenticated and attach user to request
+async function isAuthenticated(req, res, next) {
+  if (!req.session.userId) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  try {
+    const { rows } = await pool.query('SELECT id, username, email, role FROM users WHERE id = $1', [req.session.userId]);
+    if (rows.length > 0) {
+      req.user = rows[0]; // Attach user to the request object
+      next();
+    } else {
+      res.status(401).send('Unauthorized');
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server Error' });
   }
 }
+
+// Middleware to check if user is an admin
+function isAdmin(req, res, next) {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).send('Forbidden');
+  }
+}
+
+// Serve admin page only to admins
+app.get('/admin', isAuthenticated, isAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
 
 // API endpoint to get predictions
 app.get('/api/predictions', async (req, res) => {
@@ -189,16 +214,35 @@ app.get('/api/protected', isAuthenticated, (req, res) => {
 
 // API endpoint to get authenticated user's details
 app.get('/api/user', isAuthenticated, async (req, res) => {
+  // The user object is already attached to the request in the isAuthenticated middleware
+  res.json({
+    id: req.user.id,
+    username: req.user.username,
+    email: req.user.email,
+    role: req.user.role
+  });
+});
+
+// TEMPORARY ROUTE TO MAKE A USER AN ADMIN - REMOVE AFTER USE
+app.get('/make-admin-now', async (req, res) => {
+  const adminEmail = 'nwakwudoemeka@gmail.com'; // <-- IMPORTANT: REPLACE THIS WITH YOUR EMAIL
+
   try {
-    const { rows } = await pool.query('SELECT id, username, email FROM users WHERE id = $1', [req.session.userId]);
-    if (rows.length > 0) {
-      res.json(rows[0]);
+    // First, add the 'role' column if it doesn't exist.
+    await pool.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(50) DEFAULT 'user'");
+    
+    // Second, update the user's role to 'admin'.
+    const { rowCount } = await pool.query("UPDATE users SET role = 'admin' WHERE email = $1", [adminEmail]);
+
+    if (rowCount > 0) {
+      res.status(200).send(`Successfully made ${adminEmail} an admin. REMOVE THIS ROUTE NOW.`);
     } else {
-      res.status(404).send('User not found');
+      res.status(404).send(`User with email ${adminEmail} not found.`);
     }
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server Error' });
+    res.status(500).send('An error occurred.');
   }
 });
 
