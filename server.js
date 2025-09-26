@@ -223,28 +223,7 @@ app.get('/api/user', isAuthenticated, async (req, res) => {
   });
 });
 
-// TEMPORARY ROUTE TO MAKE A USER AN ADMIN - REMOVE AFTER USE
-app.get('/make-admin-now', async (req, res) => {
-  const adminEmail = 'nwakwudoemeka@gmail.com'; // <-- IMPORTANT: REPLACE THIS WITH YOUR EMAIL
 
-  try {
-    // First, add the 'role' column if it doesn't exist.
-    await pool.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(50) DEFAULT 'user'");
-    
-    // Second, update the user's role to 'admin'.
-    const { rowCount } = await pool.query("UPDATE users SET role = 'admin' WHERE email = $1", [adminEmail]);
-
-    if (rowCount > 0) {
-      res.status(200).send(`Successfully made ${adminEmail} an admin. REMOVE THIS ROUTE NOW.`);
-    } else {
-      res.status(404).send(`User with email ${adminEmail} not found.`);
-    }
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('An error occurred.');
-  }
-});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
