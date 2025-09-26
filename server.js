@@ -46,7 +46,7 @@ function isAuthenticated(req, res, next) {
 // API endpoint to get predictions
 app.get('/api/predictions', async (req, res) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM predictions');
+    const { rows } = await pool.query('SELECT * FROM predictions ORDER BY created_at DESC');
     res.json(rows);
   } catch (err) {
     console.error(err);

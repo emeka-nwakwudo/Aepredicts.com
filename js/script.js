@@ -69,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const data = await response.json();
           isAuthenticatedUser = true; // Set flag to true
           // User is logged in
+          const signinLink = document.getElementById('signin-link');
           if (signupLink) signupLink.style.display = 'none';
+          if (signinLink) signinLink.style.display = 'none';
           if (logoutButton) logoutButton.style.display = 'block';
           if (welcomeMessage) {
             welcomeMessage.textContent = `Welcome, ${data.username}!`; // Use username from response
