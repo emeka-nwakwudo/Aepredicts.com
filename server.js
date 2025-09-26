@@ -17,16 +17,13 @@ const pool = new Pool({
 });
 
 // Middleware to parse JSON bodies
-app.use(express.jserror: relation "user_sessions" does not exist
-    at C:\Users\CHIAMAKA OGBONA\OneDrive - Games Tech and Marketing Ltd\Desktop\app\node_modules\pg-pool\index.js:45:11
-    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async PGStore._asyncQuery (C:\Users\CHIAMAKA OGBONA\OneDrive - Games Tech and Marketing Ltd\Desktop\app\node_modules\connect-pg-simple\index.js:322:21)on());
+app.use(express.json());
 
-// Configure express-session
-app.use(session({.
+// Configure express-session with PostgreSQL store
+app.use(session({
   store: new pgSession({
-    pool: pool,
-    tableName: 'user_sessions'
+    pool: pool,                // Connection pool
+    tableName: 'user_sessions' // Table name for sessions
   }),
   secret: '183bd0c06a7ea4062c05c6557a2ce4077ecbec377287ba64f3d836623bd502a2', // REPLACE WITH A STRONG, UNIQUE SECRET
   resave: false,
