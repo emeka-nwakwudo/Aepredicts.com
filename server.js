@@ -222,9 +222,6 @@ app.get('/api/user', isAuthenticated, async (req, res) => {
     role: req.user.role
   });
 });
-
-
-
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });

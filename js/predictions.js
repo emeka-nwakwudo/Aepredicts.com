@@ -334,29 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveSelectionsBtnMobile.addEventListener('click', printSlip);
     }
 
-    function checkMobile() {
-        if (!openDrawer) return;
-      if (window.innerWidth <= 980) {
-        openDrawer.style.display = '';
-      } else {
-        openDrawer.style.display = 'none';
-        drawer.setAttribute('aria-hidden', 'true');
-      }
-    }
-    window.addEventListener('resize', checkMobile);
-    checkMobile();
-
-    if (openDrawer) {
-        openDrawer.addEventListener('click', () => {
-          drawer.setAttribute('aria-hidden', 'false');
-        });
-    }
-    if (closeDrawer) {
-        closeDrawer.addEventListener('click', () => {
-          drawer.setAttribute('aria-hidden', 'true');
-        });
-    }
-
     updateSlipUI();
     updatePotential();
 });
