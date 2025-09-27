@@ -227,22 +227,22 @@
     }
     .drawer-panel {
       position: absolute;
-      top: 0;
+      top: 50%; /* Position from the middle of the page */
       bottom: 0;
       right: 0;
       background: var(--panel);
       border-left: 1px solid var(--border);
       border-radius: 18px 0 0 18px;
-      max-height: 50vh; /* Adjust to half viewport height */
+      max-height: 50vh; /* Half viewport height */
       overflow: auto;
-      min-width: 250px; /* Minimum width for readability */
-      width: 75vw; /* Approximately 1/4 of the page width */
-      transform: translateX(100%);
+      min-width: 250px;
+      width: 75vw;
+      transform: translateY(50%) translateX(100%); /* Hide it off-screen to the right and shift down by half its height */
       transition: transform 0.3s ease;
       padding: 1rem;
     }
     .drawer[aria-hidden="false"] .drawer-panel {
-      transform: translateX(0);
+      transform: translateY(50%) translateX(0); /* Show it and shift down by half its height */
     }
 
     .drawer-panel aside.predictionslip {
