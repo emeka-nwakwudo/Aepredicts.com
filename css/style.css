@@ -240,7 +240,7 @@
       background: var(--panel);
       border-left: 1px solid var(--border);
       border-radius: 18px 0 0 18px;
-      max-height: 90vh; /* Allow dynamic height up to 90% of viewport height */
+      height: 50vh; /* Half viewport height */
       overflow: auto;
       min-width: 250px;
       width: 75vw;
@@ -359,21 +359,16 @@
 .mobile-nav-drawer {
   position: fixed;
   top: 0;
-  bottom: 0;
-  right: 0;
-  width: 75vw; /* Approximately 1/4 of the page width */
-  min-width: 250px; /* Minimum width for readability */
+  left: 0;
+  height: 100%;
+  width: 100%;
   background: var(--panel);
-  border-left: 1px solid var(--border);
-  border-radius: 18px 0 0 18px;
-  transform: translateX(100%);
+  transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 60;
   padding-top: 5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  overflow: auto;
-  max-height: 100vh;
+  border-left: 1px solid var(--border);
+  border-radius: 18px 0 0 18px;
 }
 
 .mobile-nav-drawer[aria-hidden="false"] {
