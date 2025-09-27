@@ -3,8 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const historyFilter = document.getElementById('history-filter');
     let allPastPredictions = [];
 
-    fetch('js/predictions.json')
-        .then(response => response.json())
+    // Show loading state
+    if (historyEventsContainer) {
+        historyEventsContainer.innerHTML = '<div class="card-body"><p>Loading history...</p></div>';
+    }
+
+    fetch('/api/predictions')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(predictions => {
             const today = new Date().toISOString().split('T')[0];
             allPastPredictions = predictions.filter(p => p.date < today);
@@ -18,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     historyEventsContainer.innerHTML = '<div class="card-body"><p>No past predictions found.</p></div>';
                 }
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching predictions:', error);
+            if (historyEventsContainer) {
+                historyEventsContainer.innerHTML = '<div class="card-body"><p>Error loading history. Please try again later.</p></div>';
             }
         });
 

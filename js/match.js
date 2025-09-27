@@ -28,8 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderComments();
 
-    fetch('js/predictions.json')
-        .then(response => response.json())
+    // Show loading state
+    if (matchDetailsContainer) {
+        matchDetailsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Loading match details...</p></div>';
+    }
+
+    fetch('/api/predictions')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(predictions => {
             const match = predictions.find(p => p.id === matchId);
 
@@ -38,6 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderMatchDetails(match, matchDetailsContainer);
             } else {
                 matchDetailsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Match not found.</p></div>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching match details:', error);
+            if (matchDetailsContainer) {
+                matchDetailsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Error loading match details. Please try again later.</p></div>';
             }
         });
 

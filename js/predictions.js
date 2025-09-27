@@ -1,8 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     let allPredictions = [];
 
+    // Show loading state
+    const todayEventsContainer = document.getElementById('today-events');
+    const futureEventsContainer = document.getElementById('future-events');
+    const predictionsEventsContainer = document.getElementById('predictions-events');
+    
+    if (todayEventsContainer) {
+        todayEventsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Loading predictions...</p></div>';
+    }
+    if (futureEventsContainer) {
+        futureEventsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Loading predictions...</p></div>';
+    }
+    if (predictionsEventsContainer) {
+        predictionsEventsContainer.innerHTML = '<div class="card-body" style="padding: 1rem;"><p>Loading predictions...</p></div>';
+    }
+
     fetch('/api/predictions')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(predictions => {
             allPredictions = predictions;
             updateSportsCount(allPredictions);
@@ -17,7 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             attachSportClickHandlers();
         })
-        .catch(error => console.error('Error fetching or parsing predictions:', error));
+        .catch(error => {
+            console.error('Error fetching predictions:', error);
+            const errorMessage = '<div class="card-body" style="padding: 1rem;"><p>Error loading predictions. Please try again later.</p></div>';
+            
+            if (todayEventsContainer) {
+                todayEventsContainer.innerHTML = errorMessage;
+            }
+            if (futureEventsContainer) {
+                futureEventsContainer.innerHTML = errorMessage;
+            }
+            if (predictionsEventsContainer) {
+                predictionsEventsContainer.innerHTML = errorMessage;
+            }
+        });
 
     function updateSportsCount(predictions) {
         const sports = ["Football", "Basketball", "Tennis", "Volleyball"];
