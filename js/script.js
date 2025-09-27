@@ -27,7 +27,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileNavLinks = document.querySelector('.mobile-navlinks');
+    const closeMobileNavButton = document.getElementById('close-mobile-nav');
+
+    if (hamburgerButton) {
+        hamburgerButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent event from bubbling up
+            const isOpened = mobileNavDrawer.getAttribute('aria-hidden') === 'false';
+            mobileNavDrawer.setAttribute('aria-hidden', isOpened ? 'true' : 'false');
+        });
+    }
+
+    if (closeMobileNavButton) {
+        closeMobileNavButton.addEventListener('click', () => {
+            mobileNavDrawer.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    if (mobileNavLinks) {
+        mobileNavLinks.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A') {
+                mobileNavDrawer.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
+
+    document.addEventListener('click', (event) => {
+        // Close mobile nav drawer if click is outside the drawer and not on the hamburger button
+        if (mobileNavDrawer && !mobileNavDrawer.contains(event.target) && event.target !== hamburgerButton) {
+            mobileNavDrawer.setAttribute('aria-hidden', 'true');
+        }
+    });
 
     // Disclaimer Modal
     const modal = document.getElementById('disclaimer-modal');
