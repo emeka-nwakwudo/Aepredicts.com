@@ -27,30 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const newHamburgerButton = document.getElementById('new-hamburger-button');
-    const newMobileNavDrawer = document.getElementById('mobile-nav-drawer-new');
-
-    if (newHamburgerButton) {
-        newHamburgerButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent event from bubbling up
-            document.body.classList.toggle('active');
-        });
-    }
-
-    if (newMobileNavDrawer) {
-        newMobileNavDrawer.addEventListener('click', (event) => {
-            if (event.target.tagName === 'A') {
-                document.body.classList.remove('active');
-            }
-        });
-    }
-
-    document.addEventListener('click', (event) => {
-        // Close mobile nav drawer if click is outside the drawer and not on the hamburger button
-        if (newMobileNavDrawer && !newMobileNavDrawer.contains(event.target) && event.target !== newHamburgerButton && document.body.classList.contains('active')) {
-            document.body.classList.remove('active');
-        }
-    });
+    
 
     // Disclaimer Modal
     const modal = document.getElementById('disclaimer-modal');
