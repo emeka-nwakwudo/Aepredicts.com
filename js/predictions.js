@@ -183,47 +183,38 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentStake = 0;
 
     function updateSlipUI() {
-      slipItems.innerHTML = '';
+      let slipItemsHtml = '';
+      let mSlipItemsHtml = '';
+
       if (slip.length === 0) {
         emptyState.style.display = '';
+        slipItemsHtml = '<div class="slip-empty">No selections yet. Tap an odds button to add.</div>';
+        mSlipItemsHtml = '<div class="slip-empty">No selections yet. Tap an odds button to add.</div>';
       } else {
         emptyState.style.display = 'none';
         slip.forEach((item, idx) => {
-          const div = document.createElement('div');
-          div.className = 'slip-item';
-          div.innerHTML = `
+          const itemHtml = `
             <div>
               <div><strong>${item.selection}</strong> <span class="small">(${item.market})</span></div>
               <div class="small">${item.match}</div>
             </div>
             <div style="text-align: right;"><span class="odd-value">${item.odds}</span><button class="remove" aria-label="Remove selection" data-idx="${idx}">&times;</button></div>
           `;
-          slipItems.appendChild(div);
+          slipItemsHtml += `<div class="slip-item">${itemHtml}</div>`;
+          mSlipItemsHtml += `<div class="slip-item">${itemHtml}</div>`;
         });
       }
+
+      slipItems.innerHTML = slipItemsHtml;
+      if (mSlipItems) {
+        mSlipItems.innerHTML = mSlipItemsHtml;
+      }
+
       legCount.textContent = slip.length + (slip.length === 1 ? ' selection' : ' selections');
       totalOdds.textContent = calcTotalOdds().toFixed(2);
       mobileCount.textContent = slip.length;
       
-      if (mSlipItems) {
-        mSlipItems.innerHTML = ''; // Clear mobile slip items
-        if (slip.length === 0) {
-          // Optionally show an empty state for mobile slip as well
-          mSlipItems.innerHTML = '<div class="slip-empty">No selections yet. Tap an odds button to add.</div>';
-        } else {
-          slip.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'slip-item';
-            div.innerHTML = `
-              <div>
-                <div><strong>${item.selection}</strong> <span class="small">(${item.market})</span></div>
-                <div class="small">${item.match}</div>
-              </div>
-              <div style="text-align: right;"><span class="odd-value">${item.odds}</span><button class="remove" aria-label="Remove selection" data-idx="${idx}">&times;</button></div>
-            `;
-            mSlipItems.appendChild(div);
-          });
-        }
+      if (mTotalOdds) {
         mTotalOdds.textContent = totalOdds.textContent;
       }
       updatePotential();
@@ -318,21 +309,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    slipItems.addEventListener('click', function(e) {
-      if (e.target.classList.contains('remove')) {
-        const idx = +e.target.getAttribute('data-idx');
-        slip.splice(idx, 1);
-        updateSlipUI();
-      }
-    });
-    if (mSlipItems) {
-        mSlipItems.addEventListener('click', function(e) {
-          if (e.target.classList.contains('remove')) {
-            const idx = +e.target.getAttribute('data-idx');
-            slip.splice(idx, 1);
-            updateSlipUI();
-          }
+    // Helper function to attach remove button listeners
+    function attachRemoveButtonListeners(container) {
+      container.querySelectorAll('.remove').forEach(button => {
+        button.addEventListener('click', function(e) {
+          const idx = +e.target.getAttribute('data-idx');
+          slip.splice(idx, 1);
+          updateSlipUI();
         });
+      });
+    }
+
+    // Initial attachment of remove button listeners (for when the page loads)
+    attachRemoveButtonListeners(slipItems);
+    if (mSlipItems) {
+        attachRemoveButtonListeners(mSlipItems);
     }
 
     stakeInput.addEventListener('input', updatePotential);
