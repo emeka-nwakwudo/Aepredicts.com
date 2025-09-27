@@ -344,7 +344,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--panel-2);
+  background: white;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 5;
@@ -361,4 +361,8 @@
   align-items: center;
   gap: 2rem;
   font-size: 1.2rem;
+}
+
+.mobile-navlinks a {
+  color: var(--primary);
 }

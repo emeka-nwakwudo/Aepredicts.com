@@ -206,7 +206,24 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileCount.textContent = slip.length;
       
       if (mSlipItems) {
-        mSlipItems.innerHTML = slipItems.innerHTML;
+        mSlipItems.innerHTML = ''; // Clear mobile slip items
+        if (slip.length === 0) {
+          // Optionally show an empty state for mobile slip as well
+          mSlipItems.innerHTML = '<div class="slip-empty">No selections yet. Tap an odds button to add.</div>';
+        } else {
+          slip.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'slip-item';
+            div.innerHTML = `
+              <div>
+                <div><strong>${item.selection}</strong> <span class="small">(${item.market})</span></div>
+                <div class="small">${item.match}</div>
+              </div>
+              <div style="text-align: right;"><span class="odd-value">${item.odds}</span><button class="remove" aria-label="Remove selection" data-idx="${idx}">&times;</button></div>
+            `;
+            mSlipItems.appendChild(div);
+          });
+        }
         mTotalOdds.textContent = totalOdds.textContent;
       }
       updatePotential();
