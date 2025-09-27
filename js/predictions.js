@@ -331,25 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveSelectionsBtnMobile.addEventListener('click', printSlip);
     }
 
-    // Mobile drawer
-    function checkMobile() {
-      if (window.innerWidth <= 980) {
-        if(openDrawer) openDrawer.style.display = '';
-      } else {
-        if(openDrawer) openDrawer.style.display = 'none';
-        if(drawer) drawer.setAttribute('aria-hidden', 'true');
-      }
-    }
-    window.addEventListener('resize', checkMobile);
-    checkMobile();
-
-    if(openDrawer) openDrawer.addEventListener('click', () => {
-      if(drawer) drawer.setAttribute('aria-hidden', 'false');
-    });
-    if(closeDrawer) closeDrawer.addEventListener('click', () => {
-      if(drawer) drawer.setAttribute('aria-hidden', 'true');
-    });
-
     updateSlipUI();
     updatePotential();
 });
