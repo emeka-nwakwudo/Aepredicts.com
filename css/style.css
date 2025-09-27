@@ -40,12 +40,6 @@
     .navlinks a{padding:8px 10px; border-radius:10px; font-size:clamp(12px,1.5vw,15px)}
     .navlinks a.active, .navlinks a:hover{background:var(--panel-2); color:var(--text)}
 
-        .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:clamp(16px,2vw,20px)}
-    .logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#22d3a6); box-shadow:0 6px 20px rgba(24,178,121,.4)}
-    .navlinks{display:flex; gap:18px; color:var(--muted); flex-wrap:wrap}
-    .navlinks a{padding:8px 10px; border-radius:10px; font-size:clamp(12px,1.5vw,15px)}
-    .navlinks a.active, .navlinks a:hover{background:var(--panel-2); color:var(--text)}
-
     .cta{
       background:var(--primary); color:#fff; padding:10px 18px; border:none;
       border-radius:999px; font-weight:700; cursor:pointer;
@@ -221,10 +215,59 @@
     }
 
     /* Drawer */
-    .drawer{position:fixed; inset:0; display:none; background:rgba(0,0,0,.55)}
-    .drawer[aria-hidden="false"]{display:block}
-    .drawer-panel{position:absolute; bottom:0; left:0; right:0; background:var(--panel); border-top:1px solid var(--border); border-radius:18px 18px 0 0; max-height:85vh; overflow:auto; width:100%}
+    .drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      visibility: hidden;
+      z-index: 100;
+    }
+    .drawer[aria-hidden="false"] {
+      visibility: visible;
+    }
+    .drawer-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      border-radius: 18px 18px 0 0;
+      max-height: 85vh;
+      overflow: auto;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .drawer[aria-hidden="false"] .drawer-panel {
+      transform: translateY(0);
+    }
+    /* Footer logo container */
+.footer-logo {
+  display: flex;
+  justify-content: flex-end; /* push logo to the right */
+  align-items: center;
+  padding-right: 2rem;       /* spacing from edge */
+}
 
+/* Footer logo image */
+.footer-logo img {
+  height: 50px;       /* let height scale automatically */
+  width: 300px;            /* make it longer horizontally */
+}
+
+/* Target your logo image */
+.header-logo img {
+  height: 40px;   /* increase logo height */
+  width: auto;    /* keep proportions */
+}
+
+/* Optional: give it some right margin */
+.header-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
 
 /* Modal styles */
 .modal {
@@ -319,3 +362,4 @@
   gap: 2rem;
   font-size: 1.2rem;
 }
+
