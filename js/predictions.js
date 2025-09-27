@@ -218,6 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
         mTotalOdds.textContent = totalOdds.textContent;
       }
       updatePotential();
+
+      // Update the 'data-picked' attribute on all odd buttons
+      document.querySelectorAll('.odd-btn').forEach(btn => {
+        const selection = btn.getAttribute('data-selection');
+        const market = btn.getAttribute('data-market');
+        const eventElement = btn.closest('.event');
+        const match = eventElement ? eventElement.querySelector('.teams div').textContent : '';
+
+        const isSelectedInSlip = slip.some(s => 
+          s.selection === selection && 
+          s.market === market && 
+          s.match === match
+        );
+        btn.dataset.picked = isSelectedInSlip ? "true" : "false";
+      });
     }
 
     function updatePotential() { 
@@ -309,45 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Global event listener for odd buttons using delegation
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('odd-btn')) {
-            const btn = event.target;
-            const selection = btn.getAttribute('data-selection');
-            const odds = btn.getAttribute('data-odds');
-            const market = btn.getAttribute('data-market');
-
-            const eventElement = btn.closest('.event');
-            const match = eventElement ? eventElement.querySelector('.teams div').textContent : '';
-
-            const oddsContainer = btn.closest('.odds');
-
-            const isCurrentlyPicked = btn.dataset.picked === "true";
-
-            if (isCurrentlyPicked) {
-                btn.dataset.picked = "false";
-                const idxToRemove = slip.findIndex(s => s.match === match && s.market === market && s.selection === selection);
-                if (idxToRemove !== -1) {
-                    slip.splice(idxToRemove, 1);
-                }
-            } else {
-                if (oddsContainer) {
-                    oddsContainer.querySelectorAll('.odd-btn').forEach(b => {
-                        b.dataset.picked = "false";
-                        const existingIdx = slip.findIndex(s => s.match === match && s.market === b.getAttribute('data-market') && s.selection === b.getAttribute('data-selection'));
-                        if (existingIdx !== -1) {
-                            slip.splice(existingIdx, 1);
-                        }
-                    });
-                }
-                btn.dataset.picked = "true";
-                slip.push({ selection, odds, market, match });
-            }
-            updateSlipUI();
-        }
-    });
-
-    // Global event listener for remove buttons using delegation
+    
     document.addEventListener('click', function(e) {
       if (e.target.classList.contains('remove')) {
         const idx = +e.target.getAttribute('data-idx');
