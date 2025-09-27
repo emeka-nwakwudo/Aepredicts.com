@@ -29,11 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hamburgerButton = document.getElementById('hamburger-button');
     const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileNavLinks = document.querySelector('.mobile-navlinks');
 
     if (hamburgerButton) {
         hamburgerButton.addEventListener('click', () => {
             const isOpened = mobileNavDrawer.getAttribute('aria-hidden') === 'false';
             mobileNavDrawer.setAttribute('aria-hidden', isOpened ? 'true' : 'false');
+        });
+    }
+
+    if (mobileNavLinks) {
+        mobileNavLinks.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A') {
+                mobileNavDrawer.setAttribute('aria-hidden', 'true');
+            }
         });
     }
 
