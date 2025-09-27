@@ -235,12 +235,12 @@
     }
     .drawer-panel {
       position: absolute;
-      top: 50vh; /* Position the top edge at 50% of viewport height */
       bottom: 0;
       right: 0;
       background: var(--panel);
       border-left: 1px solid var(--border);
       border-radius: 18px 0 0 18px;
+      max-height: 90vh; /* Allow dynamic height up to 90% of viewport height */
       overflow: auto;
       min-width: 250px;
       width: 75vw;
