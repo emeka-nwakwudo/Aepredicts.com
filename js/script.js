@@ -27,6 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+
+    if (hamburgerButton) {
+        hamburgerButton.addEventListener('click', () => {
+            const isOpened = mobileNavDrawer.getAttribute('aria-hidden') === 'false';
+            mobileNavDrawer.setAttribute('aria-hidden', isOpened ? 'true' : 'false');
+        });
+    }
+
     // Disclaimer Modal
     const modal = document.getElementById('disclaimer-modal');
     const closeButton = document.querySelector('.close-button');
@@ -90,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const adminLink = document.getElementById('admin-link');
             if (adminLink) {
               adminLink.style.display = 'block';
+            }
+            const adminLinkMobile = document.getElementById('admin-link-mobile');
+            if (adminLinkMobile) {
+              adminLinkMobile.style.display = 'block';
             }
           }
 
