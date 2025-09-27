@@ -38,8 +38,7 @@
     .logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#22d3a6); box-shadow:0 6px 20px rgba(24,178,121,.4)}
     .navlinks{display:flex; gap:18px; color:var(--muted); flex-wrap:wrap}
     .navlinks a{padding:8px 10px; border-radius:10px; font-size:clamp(12px,1.5vw,15px)}
-    .navlinks a.active, .navlinks a:hover{background:var(--panel-2); color:var(--text)}
-
+    .navlinks a.active, .navlinks a:hover{background:var(--panel-2); color:var(--text)}
     .cta{
       background:var(--primary); color:#fff; padding:10px 18px; border:none;
       border-radius:999px; font-weight:700; cursor:pointer;
@@ -184,8 +183,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-    }
-
+    }
     .social-icons-png {
       display: flex;
       gap: 10px; /* Adjust gap between images as needed */
@@ -325,7 +323,6 @@
   text-decoration: none;
   cursor: pointer;
 }
-
 /* New Hamburger Menu Styles */
 .line {
   background: var(--text);
@@ -333,16 +330,27 @@
   height: 3px;
 }
 
+/* Hide the new hamburger button and sub-menu on desktop */
+#new-hamburger-button, #mobile-nav-drawer-new {
+  display: none;
+}
+
 @media (max-width: 600px) {
   body {
     overflow-x: hidden; /* Prevent horizontal scroll when menu is open */
   }
 
-  .button {
+  /* Hide the original navlinks on mobile */
+  .navlinks {
+    display: none;
+  }
+
+  /* Show the new hamburger button on mobile */
+  #new-hamburger-button {
+    display: block;
     padding: 10px;
     height: 30px;
     width: 30px;
-    display: block;
     position: relative;
     background: var(--primary);
     background: linear-gradient(135deg, var(--primary), var(--primary-600));
@@ -357,61 +365,62 @@
     width: 30px;
     height: 3px;
     transition: all 0.15s ease-out;
+  }
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 0;
-      background: var(--text); /* Use text color for lines */
-      width: 30px;
-      height: 3px;
-      animation: menu-load-state-top 0.5s;
-      transition: all 0.15s ease-out;
-    }
+  .menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    background: var(--text); /* Use text color for lines */
+    width: 30px;
+    height: 3px;
+    animation: menu-load-state-top 0.5s;
+    transition: all 0.15s ease-out;
+  }
 
-    &:after {
-      content: '';
-      position: absolute;
-      top: 8px;
-      left: 0px;
-      background: var(--text); /* Use text color for lines */
-      width: 30px;
-      height: 3px;
-      animation: menu-load-state-bottom 0.5s;
-      transition: all 0.15s ease-out;
-    }
+  .menu::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    background: var(--text); /* Use text color for lines */
+    width: 30px;
+    height: 3px;
+    animation: menu-load-state-bottom 0.5s;
+    transition: all 0.15s ease-out;
+  }
 
-    b {
-      opacity: 0;
-      top: -13px;
-      left: 2px;
-      font-size: 0.55em;
-      line-height: 1em;
-      position: relative;
-      transition: all 0.15s 0.15s ease-in;
-      transition-delay: 0.5s;
-    }
+  .menu b {
+    opacity: 0;
+    top: -13px;
+    left: 2px;
+    font-size: 0.55em;
+    line-height: 1em;
+    position: relative;
+    transition: all 0.15s 0.15s ease-in;
+    transition-delay: 0.5s;
   }
 
   .menu:hover {
     background: transparent;
     transition: all 0.15s 0 ease-out;
-
-    &:before {
-      animation: menu-hover-top-over 0.5s 0.5s forwards;
-    }
-
-    &:after {
-      animation: menu-hover-bottom-over 0.5s 0.5s forwards;
-    }
-
-    b {
-      opacity: 1;
-    }
   }
 
-  .sub-menu {
+  .menu:hover::before {
+    animation: menu-hover-top-over 0.5s 0.5s forwards;
+  }
+
+  .menu:hover::after {
+    animation: menu-hover-bottom-over 0.5s 0.5s forwards;
+  }
+
+  .menu:hover b {
+    opacity: 1;
+  }
+
+  /* Sub-menu styles */
+  #mobile-nav-drawer-new {
     font-weight: 300;
     font-size: 1.5em;
     list-style-type: none;
@@ -428,42 +437,41 @@
     z-index: 90; /* Ensure sub-menu is below button but above other content */
   }
 
-  .sub-menu li {
+  #mobile-nav-drawer-new li {
     line-height: 60px;
     border-bottom: 1px solid var(--border);
   }
 
-  .sub-menu li:last-child {
+  #mobile-nav-drawer-new li:last-child {
     border-bottom: none;
   }
 
-  .active {
-    .menu {
-      background: transparent;
+  /* Active state for menu */
+  body.active #new-hamburger-button .menu {
+    background: transparent;
+  }
 
-      &:before {
-        top: -10px;
-        left: 5px;
-        animation: top-rot-in 0.5s forwards;
-      }
+  body.active #new-hamburger-button .menu::before {
+    top: -10px;
+    left: 5px;
+    animation: top-rot-in 0.5s forwards;
+  }
 
-      &:after {
-        top: 10px;
-        left: 5px;
-        animation: bot-rot-in 0.5s forwards;
-      }
+  body.active #new-hamburger-button .menu::after {
+    top: 10px;
+    left: 5px;
+    animation: bot-rot-in 0.5s forwards;
+  }
 
-      b {
-        opacity: 0;
-        transition: all 0.10s 0 ease-out;
-      }
-    }
+  body.active #new-hamburger-button .menu b {
+    opacity: 0;
+    transition: all 0.10s 0 ease-out;
+  }
 
-    .sub-menu {
-      opacity: 1;
-      transition: opacity 0.25s ease;
-      animation: menu-active-slide 0.25s;
-    }
+  body.active #mobile-nav-drawer-new {
+    opacity: 1;
+    transition: opacity 0.25s ease;
+    animation: menu-active-slide 0.25s;
   }
 
   /* Keyframe Animations */
@@ -507,4 +515,60 @@
   }
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
 
+.hamburger span {
+  width: 2rem;
+  height: 0.25rem;
+  background: var(--text);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Mobile Nav Drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--panel);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 60;
+  padding-top: 5rem;
+  border-left: 1px solid var(--border);
+  border-radius: 18px 0 0 18px;
+}
+
+.mobile-nav-drawer[aria-hidden="false"] {
+  transform: translateX(0);
+}
+
+.mobile-navlinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.2rem;
+}
