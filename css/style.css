@@ -227,7 +227,7 @@
     }
     .drawer-panel {
       position: absolute;
-      top: 50%; /* Position from the middle of the page */
+      top: 50vh; /* Position the top edge at 50% of viewport height */
       bottom: 0;
       right: 0;
       background: var(--panel);
@@ -237,12 +237,12 @@
       overflow: auto;
       min-width: 250px;
       width: 75vw;
-      transform: translateY(50%) translateX(100%); /* Hide it off-screen to the right and shift down by half its height */
+      transform: translateX(100%); /* Hide it off-screen to the right */
       transition: transform 0.3s ease;
       padding: 1rem;
     }
     .drawer[aria-hidden="false"] .drawer-panel {
-      transform: translateY(50%) translateX(0); /* Show it and shift down by half its height */
+      transform: translateX(0); /* Show it */
     }
 
     .drawer-panel aside.predictionslip {
