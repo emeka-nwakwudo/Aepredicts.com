@@ -233,7 +233,7 @@
       background: var(--panel);
       border-left: 1px solid var(--border);
       border-radius: 18px 0 0 18px;
-      max-height: 100vh; /* Adjust to full viewport height */
+      max-height: 50vh; /* Adjust to half viewport height */
       overflow: auto;
       min-width: 250px; /* Minimum width for readability */
       width: 75vw; /* Approximately 1/4 of the page width */

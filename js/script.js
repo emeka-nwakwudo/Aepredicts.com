@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileNavLinks = document.querySelector('.mobile-navlinks');
 
     if (hamburgerButton) {
-        hamburgerButton.addEventListener('click', () => {
+        hamburgerButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent event from bubbling up
             const isOpened = mobileNavDrawer.getAttribute('aria-hidden') === 'false';
             mobileNavDrawer.setAttribute('aria-hidden', isOpened ? 'true' : 'false');
         });
